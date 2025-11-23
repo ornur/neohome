@@ -1,7 +1,9 @@
 <script lang="ts">
+  import Features from "./components/features.svelte";
   import Hero from "./components/hero.svelte";
 </script>
 
-<main class="p-4 bg-background">
+<main class="bg-background p-4">
   <Hero />
+  <Features />
 </main>
