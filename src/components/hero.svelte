@@ -3,7 +3,7 @@
   import Nav from "./nav.svelte";
 </script>
 
-<main
+<section
   class="text-background relative h-[96vh] rounded-4xl bg-[url('/hero-bg.webp')] bg-cover bg-local px-16"
 >
   <div
@@ -64,4 +64,4 @@
       />
     </button>
   </div>
-</main>
+</section>
