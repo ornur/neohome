@@ -6,7 +6,7 @@
 <main
   class="relative bg-[url('/hero-bg.webp')] rounded-4xl bg-cover h-[96vh] text-background px-16 bg-local"
 >
-  <div class="bg-[url('/hero-bg-mask.png')] absolute z-20 -top-7 -left-14 inset-0 scale-95"></div>
+  <div class="bg-[url('/hero-bg-mask.png')] absolute z-20 -top-8 -left-14 inset-0 scale-95"></div>
   <Nav />
   <!-- top text -->
   <div class="mx-21.5 my-10 flex justify-between">

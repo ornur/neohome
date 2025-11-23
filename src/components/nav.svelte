@@ -43,7 +43,7 @@
         </li>
       {/each}
     </ul>
-    <a href={mobileLink.href} class="text-background text-5xl"
+    <a href={mobileLink.href} class="text-background text-4xl"
       >{mobileLink.label}</a
     >
   </div>
