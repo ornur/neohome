@@ -16,26 +16,32 @@
   const mobileLink = { href: "#home", label: "+1(555)123-4567" };
 </script>
 
-<nav class="flex">
-  <div class="flex w-1/2 mt-8 justify-between items-center">
-    <h3 class="text-5xl font-normal text-background">NeoHome</h3>
-    <ul class="flex gap-1">
+<nav class="absolute z-40 flex h-22 w-[86vw] max-w-[1760px] lg:w-[90vw]">
+  <div class="flex w-full items-center justify-between lg:mt-8 lg:w-1/2">
+    <h3 class="text-background text-[2.5rem] font-normal lg:text-5xl">
+      NeoHome
+    </h3>
+    <Icon
+      icon="mdi:menu"
+      width="36"
+      height="36"
+      class="text-background lg:hidden"
+    />
+    <ul class="hidden gap-1 lg:flex">
       {#each links as { href, label }}
-        <li>
-          <a
-            {href}
-            class="font-medium text-background border border-background backdrop-blur-2xl rounded-4xl px-6 py-2 hover:bg-background hover:text-foreground transition"
-            >{label}</a
-          >
+        <li
+          class="text-background border-background hover:bg-background hover:text-foreground cursor-pointer rounded-4xl border px-6 py-2 font-medium backdrop-blur-2xl transition"
+        >
+          <a {href}>{label}</a>
         </li>
       {/each}
     </ul>
   </div>
-  <div class="flex w-1/2 mt-8 items-center justify-end gap-4">
-    <ul class="flex gap-1 justify-center w-1/2">
+  <div class="mt-8 hidden w-1/2 items-center justify-end gap-4 lg:flex">
+    <ul class="flex w-1/2 justify-center gap-1">
       {#each socialLinks as { href, icon }}
         <li
-          class="text-background border border-background rounded-full aspect-square p-2 hover:bg-background hover:text-foreground transition"
+          class="text-background border-background hover:bg-background hover:text-foreground aspect-square rounded-full border p-2 transition"
         >
           <a {href}>
             <Icon {icon} width="20" height="20" />
