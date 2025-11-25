@@ -1,6 +1,74 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import { features } from "../constants/features.constants";
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { onMount } from "svelte";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  let headerTextEl: HTMLHeadingElement;
+  let rightTextEl: HTMLDivElement;
+  let bottomTextEl: HTMLParagraphElement;
+
+  onMount(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: headerTextEl,
+        start: "top 80%",
+      },
+      defaults: { duration: 1, ease: "power2.out" },
+    });
+
+    // Initial states for header
+    gsap.set([headerTextEl, rightTextEl], { autoAlpha: 0 });
+    gsap.set(headerTextEl, { x: -100 });
+    gsap.set(rightTextEl, { x: 100 });
+
+    tl.to(headerTextEl, { x: 0, autoAlpha: 1 }).to(
+      rightTextEl,
+      { x: 0, autoAlpha: 1 },
+      "-=0.8",
+    );
+
+    // Animate feature items and photo individually
+    const items: HTMLElement[] = gsap.utils.toArray(
+      ".feature-item, .feature-photo",
+    );
+
+    items.forEach((item) => {
+      gsap.fromTo(
+        item,
+        { autoAlpha: 0, y: 50 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 85%",
+          },
+        },
+      );
+    });
+
+    // Animate bottom text
+    gsap.fromTo(
+      bottomTextEl,
+      { autoAlpha: 0, y: -50 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: bottomTextEl,
+          start: "top 85%",
+        },
+      },
+    );
+  });
 </script>
 
 <section class="mx-auto mt-40 max-w-[1760px] px-3 lg:mb-20 lg:px-0">
@@ -9,11 +77,13 @@
     class="flex flex-col-reverse items-end justify-between gap-30 lg:flex-row lg:gap-0"
   >
     <h3
+      bind:this={headerTextEl}
       class="text-[2.5rem] leading-12 lg:w-1/3 lg:text-[3.5rem] lg:leading-16"
     >
       THE KEY BENEFITS OF SMART LIVING
     </h3>
     <div
+      bind:this={rightTextEl}
       class="flex flex-col items-end justify-end text-2xl lg:w-1/3 lg:text-[2.1rem] lg:leading-10"
     >
       <p class="w-fit">
@@ -35,7 +105,9 @@
         class="divide-y-2 divide-gray-300 border-gray-300 first:border-t-2 last:border-b-2"
       >
         {#each features as feature, i}
-          <li class="items-center justify-between space-y-2 py-12 lg:flex">
+          <li
+            class="feature-item items-center justify-between space-y-2 py-12 lg:flex"
+          >
             <div class="inline-flex gap-7 lg:gap-14">
               <span class="text-secondary text-3xl lg:text-4xl">0{i + 1}</span>
               <h3 class="text-2xl text-nowrap lg:text-[2.4rem] lg:leading-10">
@@ -54,7 +126,7 @@
 
     <!-- Photo -->
     <div
-      class="mt-20 flex aspect-3/4 items-end justify-end rounded-[2.5rem] bg-[url('/features/features-photo.webp')] bg-cover bg-center p-4 lg:mt-0 lg:aspect-3/5 lg:w-2/5 lg:justify-between lg:rounded-4xl lg:p-8"
+      class="feature-photo mt-20 flex aspect-3/4 items-end justify-end rounded-[2.5rem] bg-[url('/features/features-photo.webp')] bg-cover bg-center p-4 lg:mt-0 lg:aspect-3/5 lg:w-2/5 lg:justify-between lg:rounded-4xl lg:p-8"
     >
       <!-- Stats -->
       <div class="hidden flex-col gap-4 lg:flex">
@@ -101,7 +173,10 @@
   <!-- Bottom texts with images -->
   <div class="mt-40 hidden lg:block">
     <h3 class="text-center text-2xl text-gray-400">NeoHome</h3>
-    <p class="my-10 text-center text-xl leading-24 lg:text-7xl">
+    <p
+      class="my-10 text-center text-xl leading-24 lg:text-7xl"
+      bind:this={bottomTextEl}
+    >
       <span
         class="mr-5 rounded-xl bg-[url('/features/1.webp')] bg-cover bg-position-[center_top_-3.5rem] px-22"
       ></span>
